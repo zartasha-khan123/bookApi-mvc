@@ -1,5 +1,5 @@
-const { pgTable, uuid , varchar , text} = require("drizzle-orm/pg-core");
-
+const { pgTable, uuid , varchar , text , index} = require("drizzle-orm/pg-core");
+const { sql } = require("drizzle-orm");
 const authorTable = require("./author.model")
 
 
@@ -10,6 +10,7 @@ const bookTable = pgTable("bookLibrary", {
     description:text().notNull(),
     authorId: uuid().references(()=>authorTable.id).notNull(),
     
-})
+}, (table)=>([index('title_index').using('gin', sql`to_tsvector('english', ${table.title})`),
+]))
 
 module.exports= bookTable;
