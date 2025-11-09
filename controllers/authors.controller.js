@@ -51,13 +51,7 @@ exports.createAuthor = async (request, response) => {
 
     const {firstName,lastName,email} = request.body
 
-    //validation
-
-    if(!firstName || !lastName || !email){
-
-        return response.status(400).json({message:"FirstName , Email , LastName are required...."})
-
-    }
+   
  const result =await db.insert(authorTable).values( {firstName,lastName,email}).returning()
 
  return response.status(201).json({message:"Author Created!!!", result:result})

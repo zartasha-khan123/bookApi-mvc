@@ -87,10 +87,10 @@ exports.createBook = async (request, response) => {
    try{
      const { title, description, authorId } = request.body
    
-    // add validation later
-    if(!title || !description || !authorId){
-        return response.status(400).json({message:"title, description and authorId are required (is missing)"})
-    }
+    // // add validation later
+    // if(!title || !description || !authorId){
+    //     return response.status(400).json({message:"title, description and authorId are required (is missing)"})
+    // }
     // check if author exists
      const authorExists = await db.select().from(authorTable).where(eq(authorTable.id, authorId)).limit(1)
     
